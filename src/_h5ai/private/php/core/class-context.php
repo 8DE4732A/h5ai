@@ -70,6 +70,10 @@ class Context {
         return strtolower($this->setup->get('REQUEST_METHOD')) === 'post';
     }
 
+    public function is_file_upload() {
+        return $this->setup->get_file() != null && !empty($this->setup->get_file());
+    }
+
     public function is_info_request() {
         return Util::starts_with($this->setup->get('REQUEST_HREF') . '/', $this->setup->get('PUBLIC_HREF'));
     }

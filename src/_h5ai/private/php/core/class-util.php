@@ -44,6 +44,10 @@ class Util {
         return substr($sequence, 0, strlen($head)) === $head;
     }
 
+    public static function sub_str($sequence, $head) {
+        return substr($sequence, strlen($head));
+    }
+
     public static function ends_with($sequence, $tail) {
         $len = strlen($tail);
         return $len === 0 ? true : substr($sequence, -$len) === $tail;

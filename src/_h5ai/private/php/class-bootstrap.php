@@ -15,7 +15,10 @@ class Bootstrap {
         $setup = new Setup($request->query_boolean('refresh', false));
         $context = new Context($session, $request, $setup);
 
-        if ($context->is_api_request()) {
+        if($context->is_file_upload()) {
+            (new Upload($context))->apply();
+        }
+        elseif ($context->is_api_request()) {
             (new Api($context))->apply();
         } elseif ($context->is_info_request()) {
             $public_href = $setup->get('PUBLIC_HREF');

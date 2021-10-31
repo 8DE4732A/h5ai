@@ -3,12 +3,14 @@
 class Setup {
     private $store;
     private $refresh;
+    private $file;
 
     public function __construct($refresh = false) {
         $this->store = [];
         $this->refresh = $refresh;
 
         $this->add_globals_and_envs();
+        $this->add_files();
         $this->add_php_checks();
         $this->add_app_metadata();
         $this->add_server_metadata_and_check();
@@ -45,16 +47,25 @@ class Setup {
         return $this->store[$key];
     }
 
+    public function get_file() {
+        return $this->file;
+    }
+
     private function add_globals_and_envs() {
         $this->set('PHP_VERSION', PHP_VERSION);
         $this->set('MIN_PHP_VERSION', MIN_PHP_VERSION);
         $this->set('PHP_ARCH', (PHP_INT_SIZE * 8) . '-bit');
 
         $this->set('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
+        $this->set('CONTENT_TYPE', $_SERVER['CONTENT_TYPE']);
         $this->set('REQUEST_HREF', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         $this->set('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         $this->set('SERVER_SOFTWARE', $_SERVER['SERVER_SOFTWARE']);
         $this->set('HTTP_USER_AGENT', $_SERVER['HTTP_USER_AGENT']);
+    }
+
+    private function add_files() {
+        $this->file = $_FILES;
     }
 
     private function add_php_checks() {

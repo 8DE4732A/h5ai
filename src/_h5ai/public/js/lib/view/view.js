@@ -43,7 +43,13 @@ const itemTpl =
                 <span class="size"></span>
             </a>
         </li>`;
+const uploadTpl = 
+        `<form action="" method="post" enctype="multipart/form-data" style="margin: 32px;">
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" value="Upload" name="submit">
+        </form>`
 const $view = dom(viewTpl);
+const $upload = dom(uploadTpl);
 const $items = $view.find('#items');
 const $hint = $view.find('#view-hint');
 
@@ -262,6 +268,7 @@ const init = () => {
     addCssStyles();
     set();
 
+    $upload.appTo(base.$content);
     $view.appTo(base.$content);
     $hint.hide();
 
